@@ -4,8 +4,7 @@ import SecondaryTitle from './components/SecondaryTitle.jsx';
 import styled from 'styled-components';
 import TextFields from './components/TextField.jsx';
 import SimpleSelect from './components/Select.jsx';
-import EnhancedTable from './components/Table.jsx';
-import TableHeader from './components/TableHeader.jsx';
+import Table from './components/Table.jsx';
 
 let imgUrl = 'img/background.jpg';
 let backgroundStyle = {
@@ -238,7 +237,7 @@ const App = () => {
         <TextFields fieldName='Employer'></TextFields>
         <TextFields fieldName='Address'></TextFields>
         <SimpleSelect fieldName='State'></SimpleSelect>
-        <TableHeader fields={fields} enteties={data["hits"]["hits"]}></TableHeader>
+        <Table fields={fields} enteties={data["hits"]["hits"]}></Table>
         {/* <EnhancedTable></EnhancedTable> */}
 
         
