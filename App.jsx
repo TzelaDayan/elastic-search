@@ -5,18 +5,52 @@ import styled from 'styled-components';
 import TextFields from './components/TextField.jsx';
 import SimpleSelect from './components/Select.jsx';
 import Table from './components/Table.jsx';
+import {ApolloClient} from 'apollo-client';
+import {RestLink} from 'apollo-link-rest';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import gql from "graphql-tag";
 
-let imgUrl = 'img/background.jpg';
+// const restLink = new RestLink({ uri: "https://swapi.co/api/" });
+const restLink = new RestLink({ uri: "http://stlpbg26:30403" });
+// setup client
+const client = new ApolloClient({
+  link: restLink,
+  cache: new InMemoryCache(),
+});
+
+// const query = gql`
+//   query {
+//     person @rest(type: "Person", path: "people/2/") {
+//       name
+//     }
+//   }
+// `;
+const query = gql`
+  query {
+    person @rest(type: "Person", path: "people/2/") {
+      name
+    }
+  }
+`;
+
+client.query({ query }).then(response => {
+  console.log(`data from gql ` + response.data.person.name);
+});
+
+let imgUrl = 'img/background.jpg'; 
 let backgroundStyle = {
         backgroundImage: `url(${imgUrl})`,
         backgroundSize: 'cover',
         margin: '-7px',
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.div` 
   margin: 0 30px;
   font-size: 70px;
 `
+const handleStateChanged= (state) =>{
+  console.log(state);
+}
  
 const data = {
   "took": 1,
@@ -236,7 +270,7 @@ const App = () => {
         <TextFields fieldName='Last Name'></TextFields>
         <TextFields fieldName='Employer'></TextFields>
         <TextFields fieldName='Address'></TextFields>
-        <SimpleSelect fieldName='State'></SimpleSelect>
+        <SimpleSelect onStateSelected={handleStateChanged} fieldName='State'></SimpleSelect>
         <Table fields={fields} enteties={data["hits"]["hits"]}></Table>
         {/* <EnhancedTable></EnhancedTable> */}
 

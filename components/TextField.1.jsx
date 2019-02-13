@@ -221,7 +221,7 @@ class TextFields extends React.Component {
           helperText="Please select your currency"
           margin="normal"
         >
-          {currencies.map(option => (
+          {currencies.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {option.label}
             </MenuItem>

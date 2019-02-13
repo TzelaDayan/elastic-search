@@ -37,11 +37,11 @@ const handleEntityClick = () => {
   console.log("click");
 }
 
-const renderTableBody = (entety, fields) => {
+const renderTableBody = (entety, fields, entityIndex) => {
     return (
         <StyledTableRow onClick={handleEntityClick}>
-            {fields.map((fName) => 
-                <StyledCell key fieldName={fName}>{entety[fName]}</StyledCell>
+            {fields.map((fName, index) => 
+                <StyledCell key={index+entityIndex} fieldName={fName}>{entety[fName]}</StyledCell>
             )}
         </StyledTableRow>
     );
@@ -49,17 +49,16 @@ const renderTableBody = (entety, fields) => {
 
 const Table = (props) => {
     const { enteties, fields } = props;
-    debugger
     return (
         <StyledTable>
             <StyledTableHead>
-            {fields.map((fName) => 
-            <StyledCell key={fName} fieldName={fName}>{fName}</StyledCell>
+            {fields.map((fName, index) => 
+            <StyledCell key={index} fieldName={fName}>{fName}</StyledCell>
             )}
             </StyledTableHead>
             <StyledTableBody>
-                {enteties.map((entety) =>
-                renderTableBody(entety["_source"], fields)
+                {enteties.map((entety, index) =>
+                renderTableBody(entety["_source"], fields, index)
             )}
             </StyledTableBody>
         </StyledTable>
