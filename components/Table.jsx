@@ -49,7 +49,6 @@ const renderTableBody = (entety, fields, entityIndex) => {
 
 const Table = (props) => {
     const { enteties, fields } = props;
-    debugger
     return (
         <StyledTable>
             <StyledTableHead>

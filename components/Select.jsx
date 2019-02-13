@@ -41,6 +41,7 @@ class SimpleSelect extends React.Component {
   }
 
   handleChange = event => {
+    this.props.onStateSelected({ [event.target.name]: event.target.value });
     this.setState({ [event.target.name]: event.target.value });
   };
 
@@ -59,66 +60,67 @@ class SimpleSelect extends React.Component {
             {fieldName}
           </InputLabel>
           <Select
-            value={this.state.age}
+            value={this.state.name}
             onChange={this.handleChange}
             input={
               <OutlinedInput
                 labelWidth={this.state.labelWidth}
-                name="age"
+                name={"state"}
                 id="outlined-age-simple"
               />
             }
           >
-            <MenuItem value={'AL'}>Alabama</MenuItem>
-            <MenuItem value={'AK'}>Alaska</MenuItem>
-            <MenuItem value={'AZ'}>Arizona</MenuItem>
-            <MenuItem value={'AR'}>Arkansas</MenuItem>
-            <MenuItem value={'CA'}>California</MenuItem>
-            <MenuItem value={'CO'}>Colorado</MenuItem>            
-            <MenuItem value={'CT'}>Connecticut</MenuItem>
-            <MenuItem value={'DE'}>Delaware</MenuItem>
-            <MenuItem value={'FL'}>Florida</MenuItem>           
-            <MenuItem value={'GA'}>Georgia</MenuItem>
-            <MenuItem value={'HI'}>Hawaii</MenuItem>
-            <MenuItem value={'ID'}>Idaho</MenuItem>            
-            <MenuItem value={'IL'}>Illinois</MenuItem>
-            <MenuItem value={'IN'}>Indiana</MenuItem>
-            <MenuItem value={'IA'}>Iowa</MenuItem>
-            <MenuItem value={'KS'}>Kansas</MenuItem>
-            <MenuItem value={'KY'}>Kentucky</MenuItem>
-            <MenuItem value={'LA'}>Louisiana</MenuItem>
-            <MenuItem value={'ME'}>Maine</MenuItem>
-            <MenuItem value={'MD'}>Maryland</MenuItem>
-            <MenuItem value={'MA'}>Massachusetts</MenuItem>            
-            <MenuItem value={'MI'}>Michiganen</MenuItem>
-            <MenuItem value={'MN'}>Minnesota</MenuItem>
-            <MenuItem value={'MS'}>Mississippi</MenuItem>           
-            <MenuItem value={'MO'}>Missouri</MenuItem>
-            <MenuItem value={'MT'}>Montana</MenuItem>
-            <MenuItem value={'NE'}>Nebraska</MenuItem>
-            <MenuItem value={'NV'}>Nevada</MenuItem>            
-            <MenuItem value={'NH'}>New Hampshire</MenuItem>
-            <MenuItem value={'NJ'}>New Jersey</MenuItem>
-            <MenuItem value={'NM'}>New Mexico</MenuItem>
-            <MenuItem value={'NY'}>New York</MenuItem>
-            <MenuItem value={'NC'}>North Carolina</MenuItem>
-            <MenuItem value={'ND'}>North Dakota</MenuItem>
-            <MenuItem value={'OH'}>Ohio</MenuItem>
-            <MenuItem value={'OK'}>Oklahoma</MenuItem>
-            <MenuItem value={'OR'}>Oregon</MenuItem>            
-            <MenuItem value={'PA'}>Pennsylvania</MenuItem>
-            <MenuItem value={'RI'}>Rhode Island</MenuItem>          
-            <MenuItem value={'SC'}>South Carolina</MenuItem>
-            <MenuItem value={'SD'}>South Dakota</MenuItem>
-            <MenuItem value={'TN'}>Tennessee</MenuItem>            
-            <MenuItem value={'TX'}>Texas</MenuItem>
-            <MenuItem value={'VT'}>Vermont</MenuItem>
-            <MenuItem value={'UT'}>Utah</MenuItem>
-            <MenuItem value={'VA'}>Virginia</MenuItem>
-            <MenuItem value={'WA'}>Washington</MenuItem>
-            <MenuItem value={'WV'}>West Virginia</MenuItem>
-            <MenuItem value={'WI'}>Wisconsin</MenuItem>
-            <MenuItem value={'WY'}>Wyoming</MenuItem>
+            <MenuItem stateName={'Alabama'} value={'AL'}>Alabama</MenuItem>
+            <MenuItem stateName={'Alabama'} value={'AL'}>Alabama</MenuItem>
+            <MenuItem stateName={'Alaska'} value={'AK'}>Alaska</MenuItem>
+            <MenuItem stateName={'Arizona'} value={'AZ'}>Arizona</MenuItem>
+            <MenuItem stateName={'Arkansas'} value={'AR'}>Arkansas</MenuItem>
+            <MenuItem stateName={'California'} value={'CA'}>California</MenuItem>
+            <MenuItem stateName={'Colorado'} value={'CO'}>Colorado</MenuItem>            
+            <MenuItem stateName={'Connecticut'} value={'CT'}>Connecticut</MenuItem>
+            <MenuItem stateName={'Delaware'} value={'DE'}>Delaware</MenuItem>
+            <MenuItem stateName={'Florida'} value={'FL'}>Florida</MenuItem>           
+            <MenuItem stateName={'Georgia'} value={'GA'}>Georgia</MenuItem>
+            <MenuItem stateName={'Hawaii'} value={'HI'}>Hawaii</MenuItem>
+            <MenuItem stateName={'Idaho'} value={'ID'}>Idaho</MenuItem>            
+            <MenuItem stateName={'Illinois'} value={'IL'}>Illinois</MenuItem>
+            <MenuItem stateName={'Indiana'} value={'IN'}>Indiana</MenuItem>
+            <MenuItem stateName={'Iowa'} value={'IA'}>Iowa</MenuItem>
+            <MenuItem stateName={'Kansas'} value={'KS'}>Kansas</MenuItem>
+            <MenuItem stateName={'Kentucky'} value={'KY'}>Kentucky</MenuItem>
+            <MenuItem stateName={'Louisiana'} value={'LA'}>Louisiana</MenuItem>
+            <MenuItem stateName={'Maine'} value={'ME'}>Maine</MenuItem>
+            <MenuItem stateName={'Maryland'} value={'MD'}>Maryland</MenuItem>
+            <MenuItem stateName={'Massachusetts'} value={'MA'}>Massachusetts</MenuItem>            
+            <MenuItem stateName={'Michiganen'} value={'MI'}>Michiganen</MenuItem>
+            <MenuItem stateName={'Minnesota'} value={'MN'}>Minnesota</MenuItem>
+            <MenuItem stateName={'Mississippi'} value={'MS'}>Mississippi</MenuItem>           
+            <MenuItem stateName={'Missouri'} value={'MO'}>Missouri</MenuItem>
+            <MenuItem stateName={'Montana'} value={'MT'}>Montana</MenuItem>
+            <MenuItem stateName={'Nebraska'} value={'NE'}>Nebraska</MenuItem>
+            <MenuItem stateName={'Nevada'} value={'NV'}>Nevada</MenuItem>            
+            <MenuItem stateName={'New Hampshire'} value={'NH'}>New Hampshire</MenuItem>
+            <MenuItem stateName={'New Jersey'} value={'NJ'}>New Jersey</MenuItem>
+            <MenuItem stateName={'New Mexico'} value={'NM'}>New Mexico</MenuItem>
+            <MenuItem stateName={'New'} value={'NY'}>New York</MenuItem>
+            <MenuItem stateName={'North Carolina'} value={'NC'}>North Carolina</MenuItem>
+            <MenuItem stateName={'North Dakota'} value={'ND'}>North Dakota</MenuItem>
+            <MenuItem stateName={'Ohio'} value={'OH'}>Ohio</MenuItem>
+            <MenuItem stateName={'Oklahoma'} value={'OK'}>Oklahoma</MenuItem>
+            <MenuItem stateName={'Oregon'} value={'OR'}>Oregon</MenuItem>            
+            <MenuItem stateName={'Pennsylvania'} value={'PA'}>Pennsylvania</MenuItem>
+            <MenuItem stateName={'Rhode'} value={'RI'}>Rhode Island</MenuItem>          
+            <MenuItem stateName={'South Carolina'} value={'SC'}>South Carolina</MenuItem>
+            <MenuItem stateName={'South Dakota'} value={'SD'}>South Dakota</MenuItem>
+            <MenuItem stateName={'Tennessee'} value={'TN'}>Tennessee</MenuItem>            
+            <MenuItem stateName={'Texas'} value={'TX'}>Texas</MenuItem>
+            <MenuItem stateName={'Vermont'} value={'VT'}>Vermont</MenuItem>
+            <MenuItem stateName={'Utah'} value={'UT'}>Utah</MenuItem>
+            <MenuItem stateName={'Virginia'} value={'VA'}>Virginia</MenuItem>
+            <MenuItem stateName={'Washington'} value={'WA'}>Washington</MenuItem>
+            <MenuItem stateName={'West'} value={'WV'}>West Virginia</MenuItem>
+            <MenuItem stateName={'Wisconsin'} value={'WI'}>Wisconsin</MenuItem>
+            <MenuItem stateName={'Wyoming'} value={'WY'}>Wyoming</MenuItem>
           </Select>
         </FormControl>
       </form>
