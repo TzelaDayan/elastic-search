@@ -5,6 +5,32 @@ import styled from 'styled-components';
 import TextFields from './components/TextField.jsx';
 import SimpleSelect from './components/Select.jsx';
 import Table from './components/Table.jsx';
+import {ApolloClient} from 'apollo-client';
+import {RestLink} from 'apollo-link-rest';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import gql from "graphql-tag";
+
+// setup `RestLink` with endpoint
+const restLink = new RestLink({ uri: "https://swapi.co/api/" });
+
+// setup client
+const client = new ApolloClient({
+  link: restLink,
+  cache: new InMemoryCache(),
+});
+
+const query = gql`
+  query {
+    person @rest(type: "Person", path: "people/2/") {
+      name
+    }
+  }
+`;
+
+client.query({ query }).then(response => {
+  debugger;
+  console.log(`data from gql ` + response.data.person.name);
+});
 
 let imgUrl = 'img/background.jpg';
 let backgroundStyle = {
