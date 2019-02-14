@@ -10,21 +10,15 @@ import {RestLink} from 'apollo-link-rest';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import gql from "graphql-tag";
 
-// const restLink = new RestLink({ uri: "https://swapi.co/api/" });
-const restLink = new RestLink({ uri: "http://stlpbg26:30403" });
+// connector to REST endpoint
+const restLink = new RestLink({ uri: "https://swapi.co/api/" });
+
 // setup client
 const client = new ApolloClient({
   link: restLink,
   cache: new InMemoryCache(),
 });
 
-// const query = gql`
-//   query {
-//     person @rest(type: "Person", path: "people/2/") {
-//       name
-//     }
-//   }
-// `;
 const query = gql`
   query {
     person @rest(type: "Person", path: "people/2/") {
@@ -32,10 +26,6 @@ const query = gql`
     }
   }
 `;
-
-client.query({ query }).then(response => {
-  console.log(`data from gql ` + response.data.person.name);
-});
 
 let imgUrl = 'img/background.jpg'; 
 let backgroundStyle = {
@@ -48,10 +38,7 @@ const Wrapper = styled.div`
   margin: 0 30px;
   font-size: 70px;
 `
-const handleStateChanged= (state) =>{
-  console.log(state);
-}
- 
+
 const data = {
   "took": 1,
   "timed_out": false,
@@ -257,27 +244,44 @@ const data = {
     ]
   }
 }
-const fields = ['firstname', 'lastname', 'account_number', 'state']
-const App = () => {
-  
 
-  return (
-    <div style={backgroundStyle}>
-      <Wrapper>
-        <PrimaryTitle/>
-        <SecondaryTitle/>       
-        <TextFields fieldName='Account Number'></TextFields>
-        <TextFields fieldName='Last Name'></TextFields>
-        <TextFields fieldName='Employer'></TextFields>
-        <TextFields fieldName='Address'></TextFields>
-        <SimpleSelect onStateSelected={handleStateChanged} fieldName='State'></SimpleSelect>
-        <Table fields={fields} enteties={data["hits"]["hits"]}></Table>
-        {/* <EnhancedTable></EnhancedTable> */}
+const fields = ['firstname', 'lastname', 'account_number', 'state'];
 
-        
-      </Wrapper>
-    </div>
-  );
+class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { 
+      stateData: null,
+      selectedState: ""
+    };
+    this.handleStateChanged = this.handleStateChanged.bind(this);
+  }
+
+  handleStateChanged = (state) => {
+    console.log(state);
+    this.setState({selectedState: state})
+    client.query({ query }).then(response => {
+      console.log(`data from gql ` + response.data.person.name);
+    });
+  }
+
+  render() {
+    return (
+      <div style={backgroundStyle}>
+        <Wrapper>
+          <PrimaryTitle/>
+          <SecondaryTitle/>       
+          <TextFields fieldName='Account Number'></TextFields>
+          <TextFields fieldName='Last Name'></TextFields>
+          <TextFields fieldName='Employer'></TextFields>
+          <TextFields fieldName='Address'></TextFields>
+          <SimpleSelect onStateSelected={this.handleStateChanged} fieldName='State'></SimpleSelect>
+          <Table fields={fields} enteties={data["hits"]["hits"]}></Table>
+        </Wrapper>
+      </div>
+    );
+  }
 }
 
 export default App;
