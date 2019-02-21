@@ -38,7 +38,7 @@ const styles = theme => ({
 });
 
 
-class TextFields extends React.Component {
+class Text extends React.Component {
 
   state = {
     name: "",
@@ -53,6 +53,7 @@ class TextFields extends React.Component {
 
   render() {
     const { classes, fieldName } = this.props;
+    console.log(` text field name` + fieldName)
 
     return (
       <FormControl className={classes.margin}>
@@ -80,8 +81,8 @@ class TextFields extends React.Component {
   }
 }
 
-TextFields.propTypes = {
+Text.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(TextFields);
+export default withStyles(styles)(Text);

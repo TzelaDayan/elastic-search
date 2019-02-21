@@ -39,7 +39,7 @@ const handleEntityClick = () => {
 
 const renderTableBody = (entety, fields, entityIndex) => {
     return (
-        <StyledTableRow onClick={handleEntityClick}>
+        <StyledTableRow key={entityIndex} onClick={handleEntityClick}>
             {fields.map((fName, index) => 
                 <StyledCell key={index+entityIndex} fieldName={fName}>{entety[fName]}</StyledCell>
             )}
