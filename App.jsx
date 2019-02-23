@@ -27,7 +27,7 @@ const query = gql`
   }
 `;
 
-let imgUrl = 'img/background.jpg'; 
+let imgUrl = 'img/luca-zanon-1953-unsplash.jpg'; 
 let backgroundStyle = {
         backgroundImage: `url(${imgUrl})`,
         backgroundSize: 'cover',
@@ -42,14 +42,15 @@ const Wrapper = styled.div`
 class App extends React.Component {
     
   state = {
-    fields: ['firstname', 'lastname', 'account_number', 'state'],
-      data: null
+    fields: ['firstname', 'lastname', 'account_number'],
+    data: null,
+    selectedEntity: null
   };
   
   constructor(props) {
     super(props);
-
     this.handleStateChanged = this.handleStateChanged.bind(this);
+    this.handleEntityClicked = this.handleEntityClicked.bind(this);
   }
 
   handleStateChanged = (state) => {
@@ -264,12 +265,16 @@ class App extends React.Component {
       console.log(`data from gql ` + response.data.person.name);
           this.setState({data: temData.hits.hits});
     }); 
+  }
 
-    
+  handleEntityClicked = (entity) => {
+    console.log('entity clicked');
+    console.table(entity);
+    this.setState({selectedEntity: entity})
   }
 
   render() {
-    const {fields} = this.state
+    const {fields, data} = this.state
     return (
       <div style={backgroundStyle}>
         <Wrapper>
@@ -278,9 +283,9 @@ class App extends React.Component {
           {Object.keys(fields).map((key) =>
             <TextField fieldName={fields[key]} key={key}/>
           )}       
-          <SimpleSelect onStateSelected={this.handleStateChanged} fieldName='State'></SimpleSelect>
-          { this.state.data &&
-            <Table fields={this.state.fields} enteties={this.state.data}></Table>
+          <SimpleSelect onStateSelected={this.handleStateChanged} fieldName='State'/>
+          { data &&
+            <Table fields={fields} enteties={data} onEntityClick={this.handleEntityClicked}/>
           }
         </Wrapper>
       </div>

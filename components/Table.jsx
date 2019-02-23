@@ -3,8 +3,6 @@ import styled from 'styled-components';
 
 const StyledTable = styled.div`
     margin: 5% 0;
-    background: grey;
-    opacity: 0.6;
     width: 70%;
 `
 const StyledTableHead = styled.div`
@@ -33,36 +31,42 @@ const StyledCell = styled.span`
 const StyledTableBody = styled.div`
 
 `
-const handleEntityClick = () => {
-  console.log("click");
-}
 
-const renderTableBody = (entety, fields, entityIndex) => {
-    return (
-        <StyledTableRow key={entityIndex} onClick={handleEntityClick}>
-            {fields.map((fName, index) => 
-                <StyledCell key={index+entityIndex} fieldName={fName}>{entety[fName]}</StyledCell>
-            )}
-        </StyledTableRow>
-    );
-}
 
-const Table = (props) => {
-    const { enteties, fields } = props;
-    return (
-        <StyledTable>
-            <StyledTableHead>
-            {fields.map((fName, index) => 
-            <StyledCell key={index} fieldName={fName}>{fName}</StyledCell>
-            )}
-            </StyledTableHead>
-            <StyledTableBody>
-                {enteties.map((entety, index) =>
-                renderTableBody(entety["_source"], fields, index)
-            )}
-            </StyledTableBody>
-        </StyledTable>
-      );
+
+class Table extends React.Component {
+
+    handleEntityClicked = (entety) => {
+        this.props.onEntityClick(entety);
+    }
+
+    renderTableBody = (entety, fields, entityIndex) => {
+        return (
+            <StyledTableRow key={entityIndex} data={entety} onClick={() => this.handleEntityClicked( entety)}>
+                {fields.map((fName, index) => 
+                    <StyledCell key={index+entityIndex} fieldName={fName}>{entety[fName]}</StyledCell>
+                )}
+            </StyledTableRow>
+            );
+    } 
+
+    render() {
+        const { enteties, fields } = this.props;
+        return (
+            <StyledTable>
+                <StyledTableHead>
+                {fields.map((fName, index) => 
+                <StyledCell key={index} fieldName={fName}>{fName}</StyledCell>
+                )}
+                </StyledTableHead>
+                <StyledTableBody>
+                    {enteties.map((entety, index) =>
+                    this.renderTableBody(entety["_source"], fields, index)
+                )}
+                </StyledTableBody>
+            </StyledTable>
+        );        
+    }
 }
 
 export default Table;
