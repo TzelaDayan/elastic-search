@@ -40,11 +40,10 @@ const Wrapper = styled.div`
 `
 
 class App extends React.Component {
-    
   state = {
-    fields: ['firstname', 'lastname', 'account_number'],
+    tableFields: ['firstname', 'lastname', 'account_number'],
     data: null,
-    selectedEntity: null
+    searchFields: ['firstname', 'lastname', 'account_number']
   };
   
   constructor(props) {
@@ -263,29 +262,30 @@ class App extends React.Component {
 }
     client.query({ query }).then(response => {
       console.log(`data from gql ` + response.data.person.name);
-          this.setState({data: temData.hits.hits});
+      this.setState({data: temData.hits.hits});
     }); 
   }
 
   handleEntityClicked = (entity) => {
-    console.log('entity clicked');
-    console.table(entity);
-    this.setState({selectedEntity: entity})
+    let selectedEntity = [];
+    selectedEntity.push(entity);
+    this.setState({tableFields: Object.keys(entity["_source"])});
+    this.setState({data: selectedEntity});
   }
 
   render() {
-    const {fields, data} = this.state
+    const {searchFields, tableFields, data} = this.state;
     return (
       <div style={backgroundStyle}>
         <Wrapper>
           <PrimaryTitle/>
           <SecondaryTitle/>
-          {Object.keys(fields).map((key) =>
-            <TextField fieldName={fields[key]} key={key}/>
+          {Object.keys(searchFields).map((key) =>
+            <TextField fieldName={searchFields[key]} key={key}/>
           )}       
           <SimpleSelect onStateSelected={this.handleStateChanged} fieldName='State'/>
           { data &&
-            <Table fields={fields} enteties={data} onEntityClick={this.handleEntityClicked}/>
+            <Table tableFields={tableFields} enteties={data} onEntityClick={this.handleEntityClicked}/>
           }
         </Wrapper>
       </div>
