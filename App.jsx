@@ -31,19 +31,27 @@ let imgUrl = 'img/luca-zanon-1953-unsplash.jpg';
 let backgroundStyle = {
         backgroundImage: `url(${imgUrl})`,
         backgroundSize: 'cover',
-        margin: '-7px',
+        margin: '-7px 0 50px 0',
 }
 
 const Wrapper = styled.div` 
-  margin: 0 30px;
-  font-size: 70px;
+  margin: 30px 30px;
+`
+const StyledButton = styled.button`
+  padding: 20px;
+  margin: 30px 0;
+  font-size: 30px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 25px;
+  border: none;
 `
 
 class App extends React.Component {
   state = {
+    searchFields: ['firstname', 'lastname', 'account_number'],
     tableFields: ['firstname', 'lastname', 'account_number'],
     data: null,
-    searchFields: ['firstname', 'lastname', 'account_number']
+    editMode: false
   };
   
   constructor(props) {
@@ -262,19 +270,27 @@ class App extends React.Component {
 }
     client.query({ query }).then(response => {
       console.log(`data from gql ` + response.data.person.name);
-      this.setState({data: temData.hits.hits});
+      this.setState({
+        tableFields: ['firstname', 'lastname', 'account_number'],
+        data: temData.hits.hits,
+        editMode: false
+      });
     }); 
   }
 
   handleEntityClicked = (entity) => {
     let selectedEntity = [];
     selectedEntity.push(entity);
-    this.setState({tableFields: Object.keys(entity["_source"])});
-    this.setState({data: selectedEntity});
+    this.setState({
+      tableFields: Object.keys(entity["_source"]),
+      data: selectedEntity,
+      editMode: true
+    });
   }
 
   render() {
-    const {searchFields, tableFields, data} = this.state;
+    const {searchFields, tableFields, data, editMode} = this.state;
+    console.log('editMode app: '+ editMode);
     return (
       <div style={backgroundStyle}>
         <Wrapper>
@@ -285,8 +301,12 @@ class App extends React.Component {
           )}       
           <SimpleSelect onStateSelected={this.handleStateChanged} fieldName='State'/>
           { data &&
-            <Table tableFields={tableFields} enteties={data} onEntityClick={this.handleEntityClicked}/>
+            <Table editMode={editMode} tableFields={tableFields} enteties={data} onEntityClick={this.handleEntityClicked}/>
           }
+          {editMode &&
+            <StyledButton>Submit</StyledButton>
+          }
+          <TextField></TextField>
         </Wrapper>
       </div>
     );

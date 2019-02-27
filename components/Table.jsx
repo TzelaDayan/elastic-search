@@ -36,18 +36,19 @@ class Table extends React.Component {
         this.props.onEntityClick(entety);
     }
 
-    renderTableBody = (entety, tableFields, entityIndex) => {
+    renderTableBody = (entety, tableFields, entityIndex, editMode) => {
+        console.log('editMode: '+ editMode);
         return (
             <StyledTableRow key={entityIndex} data={entety["_source"]} onClick={() => this.handleEntityClicked( entety)}>
                 {tableFields.map((fName, index) => 
-                    <StyledCell key={index+entityIndex} fieldName={fName}>{entety["_source"][fName]}</StyledCell>
+                    <input type="text" value={entety["_source"][fName]} key={index+entityIndex} fieldName={fName} disabled={!editMode}/>
                 )}
             </StyledTableRow>
             );
     } 
 
     render() {
-        const { enteties, tableFields } = this.props;
+        const { enteties, tableFields, editMode } = this.props;
         // const tableFields = Object.keys(enteties[0]);
         return (
             <StyledTable>
@@ -58,7 +59,7 @@ class Table extends React.Component {
                 </StyledTableHead>
                 <StyledTableBody>
                     {enteties.map((entety, index) =>
-                    this.renderTableBody(entety, tableFields, index)
+                    this.renderTableBody(entety, tableFields, index, editMode)
                 )}
                 </StyledTableBody>
             </StyledTable>
