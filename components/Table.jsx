@@ -37,7 +37,6 @@ class Table extends React.Component {
     }
 
     renderTableBody = (entety, tableFields, entityIndex, editMode) => {
-        console.log('editMode: '+ editMode);
         return (
             <StyledTableRow key={entityIndex} data={entety["_source"]} onClick={() => this.handleEntityClicked( entety)}>
                 {tableFields.map((fName, index) => 
