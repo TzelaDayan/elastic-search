@@ -1,14 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import grey from '@material-ui/core/colors/grey';
-
 
 const styles = theme => ({
   root: {
@@ -22,114 +17,94 @@ const styles = theme => ({
   selectEmpty: {
     marginTop: theme.spacing.unit * 2,
   },
-  cssOutlinedInput: {
-    color: grey[50],
-  },
 });
 
-class SimpleSelect extends React.Component {
+class NativeSelects extends React.Component {
   state = {
-    age: '',
-    name: 'hai',
-    labelWidth: 0,
   };
 
-  componentDidMount() {
-    this.setState({
-      labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
-    });
-  }
-
-  handleChange = event => {
+  handleChange = name => event => {
     this.props.onStateSelected({ [event.target.name]: event.target.value });
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({ [name]: event.target.value });
   };
 
   render() {
     const { classes, fieldName } = this.props;
 
     return (
-      <form className={classes.root} autoComplete="off">
-        <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel
-            ref={ref => {
-              this.InputLabelRef = ref;
-            }}
-            htmlFor="outlined-age-simple"
-          >
-            {fieldName}
-          </InputLabel>
+      <div className={classes.root}>
+        <FormControl className={classes.formControl}>
+          <InputLabel htmlFor="select-us-states">{fieldName}</InputLabel>
           <Select
-            value={this.state.name}
-            onChange={this.handleChange}
-            input={
-              <OutlinedInput
-                labelWidth={this.state.labelWidth}
-                name={"state"}
-                id="outlined-age-simple"
-              />
-            }
+            native
+            value={this.state.sataeName}
+            onChange={this.handleChange('sataeName')}
+            inputProps={{
+              name: 'sataeName',
+              id: 'select-us-states',
+            }}
           >
-            <MenuItem stateName={'Alabama'} value={'AL'}>Alabama</MenuItem>
-            <MenuItem stateName={'Alabama'} value={'AL'}>Alabama</MenuItem>
-            <MenuItem stateName={'Alaska'} value={'AK'}>Alaska</MenuItem>
-            <MenuItem stateName={'Arizona'} value={'AZ'}>Arizona</MenuItem>
-            <MenuItem stateName={'Arkansas'} value={'AR'}>Arkansas</MenuItem>
-            <MenuItem stateName={'California'} value={'CA'}>California</MenuItem>
-            <MenuItem stateName={'Colorado'} value={'CO'}>Colorado</MenuItem>            
-            <MenuItem stateName={'Connecticut'} value={'CT'}>Connecticut</MenuItem>
-            <MenuItem stateName={'Delaware'} value={'DE'}>Delaware</MenuItem>
-            <MenuItem stateName={'Florida'} value={'FL'}>Florida</MenuItem>           
-            <MenuItem stateName={'Georgia'} value={'GA'}>Georgia</MenuItem>
-            <MenuItem stateName={'Hawaii'} value={'HI'}>Hawaii</MenuItem>
-            <MenuItem stateName={'Idaho'} value={'ID'}>Idaho</MenuItem>            
-            <MenuItem stateName={'Illinois'} value={'IL'}>Illinois</MenuItem>
-            <MenuItem stateName={'Indiana'} value={'IN'}>Indiana</MenuItem>
-            <MenuItem stateName={'Iowa'} value={'IA'}>Iowa</MenuItem>
-            <MenuItem stateName={'Kansas'} value={'KS'}>Kansas</MenuItem>
-            <MenuItem stateName={'Kentucky'} value={'KY'}>Kentucky</MenuItem>
-            <MenuItem stateName={'Louisiana'} value={'LA'}>Louisiana</MenuItem>
-            <MenuItem stateName={'Maine'} value={'ME'}>Maine</MenuItem>
-            <MenuItem stateName={'Maryland'} value={'MD'}>Maryland</MenuItem>
-            <MenuItem stateName={'Massachusetts'} value={'MA'}>Massachusetts</MenuItem>            
-            <MenuItem stateName={'Michiganen'} value={'MI'}>Michiganen</MenuItem>
-            <MenuItem stateName={'Minnesota'} value={'MN'}>Minnesota</MenuItem>
-            <MenuItem stateName={'Mississippi'} value={'MS'}>Mississippi</MenuItem>           
-            <MenuItem stateName={'Missouri'} value={'MO'}>Missouri</MenuItem>
-            <MenuItem stateName={'Montana'} value={'MT'}>Montana</MenuItem>
-            <MenuItem stateName={'Nebraska'} value={'NE'}>Nebraska</MenuItem>
-            <MenuItem stateName={'Nevada'} value={'NV'}>Nevada</MenuItem>            
-            <MenuItem stateName={'New Hampshire'} value={'NH'}>New Hampshire</MenuItem>
-            <MenuItem stateName={'New Jersey'} value={'NJ'}>New Jersey</MenuItem>
-            <MenuItem stateName={'New Mexico'} value={'NM'}>New Mexico</MenuItem>
-            <MenuItem stateName={'New'} value={'NY'}>New York</MenuItem>
-            <MenuItem stateName={'North Carolina'} value={'NC'}>North Carolina</MenuItem>
-            <MenuItem stateName={'North Dakota'} value={'ND'}>North Dakota</MenuItem>
-            <MenuItem stateName={'Ohio'} value={'OH'}>Ohio</MenuItem>
-            <MenuItem stateName={'Oklahoma'} value={'OK'}>Oklahoma</MenuItem>
-            <MenuItem stateName={'Oregon'} value={'OR'}>Oregon</MenuItem>            
-            <MenuItem stateName={'Pennsylvania'} value={'PA'}>Pennsylvania</MenuItem>
-            <MenuItem stateName={'Rhode'} value={'RI'}>Rhode Island</MenuItem>          
-            <MenuItem stateName={'South Carolina'} value={'SC'}>South Carolina</MenuItem>
-            <MenuItem stateName={'South Dakota'} value={'SD'}>South Dakota</MenuItem>
-            <MenuItem stateName={'Tennessee'} value={'TN'}>Tennessee</MenuItem>            
-            <MenuItem stateName={'Texas'} value={'TX'}>Texas</MenuItem>
-            <MenuItem stateName={'Vermont'} value={'VT'}>Vermont</MenuItem>
-            <MenuItem stateName={'Utah'} value={'UT'}>Utah</MenuItem>
-            <MenuItem stateName={'Virginia'} value={'VA'}>Virginia</MenuItem>
-            <MenuItem stateName={'Washington'} value={'WA'}>Washington</MenuItem>
-            <MenuItem stateName={'West'} value={'WV'}>West Virginia</MenuItem>
-            <MenuItem stateName={'Wisconsin'} value={'WI'}>Wisconsin</MenuItem>
-            <MenuItem stateName={'Wyoming'} value={'WY'}>Wyoming</MenuItem>
+            <option value="" />
+            <option statename={'Alabama'} value={'AL'}>Alabama</option>
+            <option statename={'Alabama'} value={'AL'}>Alabama</option>
+            <option statename={'Alaska'} value={'AK'}>Alaska</option>
+            <option statename={'Arizona'} value={'AZ'}>Arizona</option>
+            <option statename={'Arkansas'} value={'AR'}>Arkansas</option>
+            <option statename={'California'} value={'CA'}>California</option>
+            <option statename={'Colorado'} value={'CO'}>Colorado</option>            
+            <option statename={'Connecticut'} value={'CT'}>Connecticut</option>
+            <option statename={'Delaware'} value={'DE'}>Delaware</option>
+            <option statename={'Florida'} value={'FL'}>Florida</option>           
+            <option statename={'Georgia'} value={'GA'}>Georgia</option>
+            <option statename={'Hawaii'} value={'HI'}>Hawaii</option>
+            <option statename={'Idaho'} value={'ID'}>Idaho</option>            
+            <option statename={'Illinois'} value={'IL'}>Illinois</option>
+            <option statename={'Indiana'} value={'IN'}>Indiana</option>
+            <option statename={'Iowa'} value={'IA'}>Iowa</option>
+            <option statename={'Kansas'} value={'KS'}>Kansas</option>
+            <option statename={'Kentucky'} value={'KY'}>Kentucky</option>
+            <option statename={'Louisiana'} value={'LA'}>Louisiana</option>
+            <option statename={'Maine'} value={'ME'}>Maine</option>
+            <option statename={'Maryland'} value={'MD'}>Maryland</option>
+            <option statename={'Massachusetts'} value={'MA'}>Massachusetts</option>            
+            <option statename={'Michiganen'} value={'MI'}>Michiganen</option>
+            <option statename={'Minnesota'} value={'MN'}>Minnesota</option>
+            <option statename={'Mississippi'} value={'MS'}>Mississippi</option>           
+            <option statename={'Missouri'} value={'MO'}>Missouri</option>
+            <option statename={'Montana'} value={'MT'}>Montana</option>
+            <option statename={'Nebraska'} value={'NE'}>Nebraska</option>
+            <option statename={'Nevada'} value={'NV'}>Nevada</option>            
+            <option statename={'New Hampshire'} value={'NH'}>New Hampshire</option>
+            <option statename={'New Jersey'} value={'NJ'}>New Jersey</option>
+            <option statename={'New Mexico'} value={'NM'}>New Mexico</option>
+            <option statename={'New'} value={'NY'}>New York</option>
+            <option statename={'North Carolina'} value={'NC'}>North Carolina</option>
+            <option statename={'North Dakota'} value={'ND'}>North Dakota</option>
+            <option statename={'Ohio'} value={'OH'}>Ohio</option>
+            <option statename={'Oklahoma'} value={'OK'}>Oklahoma</option>
+            <option statename={'Oregon'} value={'OR'}>Oregon</option>            
+            <option statename={'Pennsylvania'} value={'PA'}>Pennsylvania</option>
+            <option statename={'Rhode'} value={'RI'}>Rhode Island</option>          
+            <option statename={'South Carolina'} value={'SC'}>South Carolina</option>
+            <option statename={'South Dakota'} value={'SD'}>South Dakota</option>
+            <option statename={'Tennessee'} value={'TN'}>Tennessee</option>            
+            <option statename={'Texas'} value={'TX'}>Texas</option>
+            <option statename={'Vermont'} value={'VT'}>Vermont</option>
+            <option statename={'Utah'} value={'UT'}>Utah</option>
+            <option statename={'Virginia'} value={'VA'}>Virginia</option>
+            <option statename={'Washington'} value={'WA'}>Washington</option>
+            <option statename={'West'} value={'WV'}>West Virginia</option>
+            <option statename={'Wisconsin'} value={'WI'}>Wisconsin</option>
+            <option statename={'Wyoming'} value={'WY'}>Wyoming</option>
           </Select>
         </FormControl>
-      </form>
+      </div>
     );
   }
 }
 
-SimpleSelect.propTypes = {
+NativeSelects.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SimpleSelect);
+export default withStyles(styles)(NativeSelects);
